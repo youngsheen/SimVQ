@@ -1,0 +1,90 @@
+seed_everything: true
+trainer:
+  accelerator: gpu
+  strategy: ddp_find_unused_parameters_true
+  devices: 1
+  num_nodes: 1
+  precision: 16-mixed
+  max_epochs: 50
+  check_val_every_n_epoch: 1
+  num_sanity_val_steps: 0
+  log_every_n_steps: 100
+  callbacks:
+    - class_path: lightning.pytorch.callbacks.ModelCheckpoint
+      init_args:
+        dirpath: "vq_audio_log/simvq_1k" # Please specify your own path
+        save_top_k: -1 # save all checkpoints
+    - class_path: lightning.pytorch.callbacks.LearningRateMonitor
+      init_args:
+        logging_interval: step
+  logger:
+    class_path: lightning.pytorch.loggers.TensorBoardLogger
+    init_args:
+      save_dir: "vq_audio_log/simvq_1k" #Please specify your own path
+      version: "1second"
+      name:
+
+model:
+  class_path: taming.models.vq_audio.VQModel
+  init_args:
+    ddconfig:
+      causal: true
+      dimension: 512
+    
+    quantconfig:
+      target: taming.modules.vqvae.SimVQ1D
+      params:
+        n_e: 1024
+        e_dim: 512
+        beta: 0.25
+        legacy: false
+
+    lossconfig:
+      target: taming.modules.losses.stft.VQSTFTWithDiscriminator
+      params:
+        disc_conditional: False
+        disc_in_channels: 1
+        disc_start: 0 # from 0 epoch
+        codebook_enlarge_ratio: 0
+        codebook_enlarge_steps: 2000
+        sample_rate: 24000
+        commit_weight: 1000.0
+        gen_loss_weight: 1.0
+        mel_loss_coeff: 45.0
+        mrd_loss_coeff: 1.0
+    
+    sample_rate: 24000
+    audio_normalize: false
+    segment: None
+    learning_rate: 1e-4
+    scheduler_type: "None"
+    use_ema: true
+
+data:
+  class_path: main.PadDataModuleFromConfig
+  init_args:
+    batch_size: 20
+    num_workers: 4
+    train:
+      target: taming.data.libritts.LibriTTSTrain
+      params:
+        config:
+          sample_rate: 24000
+          channels: 1
+          clip_seconds: 1
+    validation:
+      target: taming.data.libritts.LibriTTSDev
+      params:
+        config:
+          sample_rate: 24000
+          channels: 1
+          clip_seconds: 1
+    test:
+      target: taming.data.libritts.LibriTTSTest
+      params:
+        config:
+          sample_rate: 24000
+          channels: 1
+          clip_seconds: -1
+
+ckpt_path: null # to resume

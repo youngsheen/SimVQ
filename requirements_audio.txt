@@ -1,0 +1,4 @@
+fairseq
+torchcrepe
+pesq
+pystoi
