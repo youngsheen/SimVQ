@@ -108,12 +108,12 @@ DATA_ROOT="dataset/libritts" python main.py fit --config configs/libritts_24khz.
 #### Evaluation Scripts
 * Image Tokenizer Evaluation
 ```
-XDG_CACHE_HOME="dataset/ILSVRC2012" python evaluation.py --config_file vq_log/simvq/size128/config.yaml --ckpt_path vq_log/openmagvit/epoch=49-step=250250.ckpt
+XDG_CACHE_HOME="dataset/ILSVRC2012" python evaluation.py --config_file vq_log/simvq_1k/size128/config.yaml --ckpt_path vq_log/simvq_1k/epoch=49-step=250250.ckpt
 ```
 
 * Audio Tokenizer Evaluation
 ```
-DATA_ROOT="dataset/libritts" python evaluation_speech.py --config_file encodec_log/65k/1second/config.yaml --ckpt_path encodec_log/65k/epoch=49-step=443500.ckpt
+DATA_ROOT="dataset/libritts" python evaluation_speech.py --config_file vq_audio_log/simvq_1k/1second/config.yaml --ckpt_path vq_audio_log/simvq_1k/epoch=49-step=443500.ckpt
 ```
 
 ## Acknowledgement
