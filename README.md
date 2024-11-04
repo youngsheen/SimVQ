@@ -1,7 +1,7 @@
 # SimVQ: Addressing Representation Collapse in Vector Quantized Models with One Linear Layer
 
 
-<details open><summary>💡 Some other projects about Discrete Tokenizer for Multimodal GenAI from our team may interest you ✨. </summary><p>
+<details open><summary>💡 Some other projects about Discrete Tokenizer based Multimodal GenAI from our team may interest you ✨. </summary><p>
 <!--  may -->
 
 > [**[NeurIPS 2024] Stabilize the Latent Space for Image Autoregressive Modeling: A Unified Perspective**](https://github.com/DAMO-NLP-SG/DiGIT) <br>
@@ -18,10 +18,6 @@
 
 </p></details>
 
-
-## Overview
-
-We present DiGIT, an auto-regressive generative model performing next-token prediction in an abstract latent space derived from self-supervised learning (SSL) models. By employing K-Means clustering on the hidden states of the DINOv2 model, we effectively create a novel discrete tokenizer. This method significantly boosts image generation performance on ImageNet dataset, achieving an FID score of 4.59 for class-unconditional tasks and 3.39 for class-conditional tasks. Additionally, the model enhances image understanding, achieving a linear-probe accuracy of 80.3.
 
 **Algorithm for SimVQ** 
 
