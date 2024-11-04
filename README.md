@@ -1,7 +1,27 @@
-## SimVQ: Addressing Representation Collapse in Vector Quantized Models with One Linear Layer
+# SimVQ: Addressing Representation Collapse in Vector Quantized Models with One Linear Layer
 
 
-## Implementations
+<details open><summary>💡 Some other projects about Discrete Tokenizer for Multimodal GenAI from our team may interest you ✨. </summary><p>
+<!--  may -->
+
+> [**[NeurIPS 2024] Stabilize the Latent Space for Image Autoregressive Modeling: A Unified Perspective**](https://github.com/DAMO-NLP-SG/DiGIT) <br>
+> Yongxin Zhu, Bocheng Li, Hang Zhang, Xin Li, Linli Xu, Lidong Bing <br>
+[![github](https://img.shields.io/badge/-Github-black?logo=github)](https://github.com/DAMO-NLP-SG/DiGIT)  [![github](https://img.shields.io/github/stars/DAMO-NLP-SG/DiGIT.svg?style=social)](https://github.com/DAMO-NLP-SG/DiGIT) [![arXiv](https://img.shields.io/badge/Arxiv-2410.12490-b31b1b.svg?logo=arXiv)](https://arxiv.org/abs/2410.12490) <br>
+
+> [**[ACL 2024] Generative Pre-Trained Speech Language Model with Efficient Hierarchical Transformer**](https://github.com/youngsheen/GPST) <br>
+> Yongxin Zhu, Dan Su, Liqiang He, Linli Xu, Dong Yu <br>
+[![github](https://img.shields.io/badge/-Github-black?logo=github)](https://github.com/youngsheen/GPST)  [![github](https://img.shields.io/github/stars/youngsheen/GPST.svg?style=social)](https://github.com/youngsheen/GPST) [![arXiv](https://img.shields.io/badge/Arxiv-2406.00976-b31b1b.svg?logo=arXiv)](https://arxiv.org/abs/2406.00976) <br>
+
+> [**[EMNLP 2023] DiffS2UT: A Semantic Preserving Diffusion Model for Textless Direct Speech-to-Speech Translation**](https://aclanthology.org/2023.emnlp-main.709) <br>
+> Yongxin Zhu, Zhujin Gao, Xinyuan Zhou, Zhongyi Ye, Linli Xu <br>
+[![arXiv](https://img.shields.io/badge/Arxiv-2310.17570-b31b1b.svg?logo=arXiv)](https://arxiv.org/abs/2310.17570) <br>
+
+</p></details>
+
+
+## Overview
+
+We present DiGIT, an auto-regressive generative model performing next-token prediction in an abstract latent space derived from self-supervised learning (SSL) models. By employing K-Means clustering on the hidden states of the DINOv2 model, we effectively create a novel discrete tokenizer. This method significantly boosts image generation performance on ImageNet dataset, achieving an FID score of 4.59 for class-unconditional tasks and 3.39 for class-conditional tasks. Additionally, the model enhances image understanding, achieving a linear-probe accuracy of 80.3.
 
 **Algorithm for SimVQ** 
 
@@ -9,7 +29,52 @@
 <img src="./assets/Algorithm.png">
 </p>
 
+
+## Quantitative Comparison
+
+**Table 1.** Reconstruction performance of different tokenizers on $128 \times 128$ ImageNet 50k validation set.
+| Method | Codebook Size | Codebook Utilization | rFID | LPIPS | PSNR | SSIM | Checkpoint |
+|:------:|:-------------:|:----:|:----:|:---------------------:|:----:|:----:|:----:|
+|VQGAN | 65,536 |  1.4% | 3.74 |  0.17 | 22.20 | 70.6 | -|
+|VQGAN | 65,536 |  4.5% | 3.23 |  0.15 | 22.89 | 72.3 | -|
+|VQGAN-FC | 65,536 | 100.0% | 2.63 | 0.13 | 23.79 | 77.5 | - |
+|FSQ | 64,000 | 100.0% | 2.80 | 0.13| 23.63 | 75.8 | - |
+|LFQ | 65,536 | 100.0% | 2.88 | 0.13| 23.60 | 77.2 | - |
+|VQGAN-LC | 65,536 | 100.0% | 2.40 | 0.13 | 23.98 | 77.3 | - |
+|SimVQ (ours) | 65,536 | 100.0% | **2.24** | **0.12** | **24.15** | **78.4** | - |
+|SimVQ (ours) | 262,144 | 100.0% | **1.99** | **0.11** | **24.68** | **80.3** | - |
+
+   
+**Table 2.** Reconstruction performance of different tokenizers on LibriTTS test clean/other set.
+
+| Method | Bandwidth | Codebook Utilization | UTMOS | PESQ | STOI | V/UV F1 | Checkpoint |
+|:------:|:-------------:|:----:|:----:|:---------------------:|:----:|:----:|:----:|
+|Encodec | 3.0kbps | -/-% | 2.31/2.09 | 2.05/2.05 | 0.90/0.88 | 0.92/0.89 | - |
+|Vocos | 3.0kbps | -/-% | 3.53/3.06 | 2.40/2.19 | 0.92/0.90 | 0.94/0.91 | - |
+|SpeechTokenizer | 3.0kbps | -/-% | 3.56/3.02 | 1.93/1.74 | 0.88/0.84 | 0.93/0.89 | - |
+|WavTokenizer | 0.9kbps | 100/100% | 3.74/3.43 | 2.01/2.26 | 0.89/0.89 | 0.92/0.92 | - |
+|WavTokenizer | 1.05kbps | 27/-% | 4.00/- | 2.36/- | 0.81/- | 0.94/- | - |
+|SimVQ (ours) | 0.9kbps | 100.0/100.0% | 4.00/3.51 | 2.33/2.08 | 0.91/0.88 | 0.94/0.91 | - |
+|SimVQ (ours) | 1.35kbps | 95.6/94.7% | 4.03/3.53 | 2.61/2.31 | 0.93/0.90 | 0.95/0.93 | - |
+
+
+### Reconstruction Visualization
+
+**Figure 2.** Visualization of the Open-MAGVIT2 tokenizer trained at $128 \times 128$ resolution (`imagenet_simvq_128_Base` version). (a) indicates the original images while (b) specifies the reconstruction images.
+<p align="center">
+    <img src="./assets/case_image.png">
+</p>
+
+**Figure 3.** Visualization of the Open-MAGVIT2 tokenizer trained at LibriTTS (`libritts_24khz` version). (a) indicates the original images while (b) specifies the reconstruction images.
+<p align="center">
+    <img src="./assets/case_audio.png">
+</p>
+
+
+## Implementations
+
 ### Installation
+
 - **Dependencies**: `pip install -r requirements.txt`
 - **Extra dependencies for audio evaluation**: `pip install -r requirements_audio.txt`
 - **Datasets**
@@ -49,52 +114,7 @@ LibriTTS
     ├── ...
 ```
 
-### Training of Visual Tokenizer
-
-#### Quantitative Comparison
-
-**Table 1.** Reconstruction performance of different tokenizers on $128 \times 128$ ImageNet 50k validation set.
-| Method | Codebook Size | Codebook Utilization | rFID | LPIPS | PSNR | SSIM | Checkpoint |
-|:------:|:-------------:|:----:|:----:|:---------------------:|:----:|:----:|:----:|
-|VQGAN | 65,536 |  1.4% | 3.74 |  0.17 | 22.20 | 70.6 | -|
-|VQGAN | 65,536 |  4.5% | 3.23 |  0.15 | 22.89 | 72.3 | -|
-|VQGAN-FC | 65,536 | 100.0% | 2.63 | 0.13 | 23.79 | 77.5 | - |
-|FSQ | 64,000 | 100.0% | 2.80 | 0.13| 23.63 | 75.8 | - |
-|LFQ | 65,536 | 100.0% | 2.88 | 0.13| 23.60 | 77.2 | - |
-|VQGAN-LC | 65,536 | 100.0% | 2.40 | 0.13 | 23.98 | 77.3 | - |
-|SimVQ (ours) | 65,536 | 100.0% | **2.24** | **0.12** | **24.15** | **78.4** | - |
-|SimVQ (ours) | 262,144 | 100.0% | **1.99** | **0.11** | **24.68** | **80.3** | - |
-
-   
-**Table 2.** Reconstruction performance of different tokenizers on LibriTTS test clean/other set.
-
-| Method | Bandwidth | Codebook Utilization | UTMOS | PESQ | STOI | V/UV F1 | Checkpoint |
-|:------:|:-------------:|:----:|:----:|:---------------------:|:----:|:----:|:----:|
-|Encodec | 3.0kbps | -/-% | 2.31/2.09 | 2.05/2.05 | 0.90/0.88 | 0.92/0.89 | - |
-|Vocos | 3.0kbps | -/-% | 3.53/3.06 | 2.40/2.19 | 0.92/0.90 | 0.94/0.91 | - |
-|SpeechTokenizer | 3.0kbps | -/-% | 3.56/3.02 | 1.93/1.74 | 0.88/0.84 | 0.93/0.89 | - |
-|WavTokenizer | 0.9kbps | 100/100% | 3.74/3.43 | 2.01/2.26 | 0.89/0.89 | 0.92/0.92 | - |
-|WavTokenizer | 1.05kbps | 27/-% | 4.00/- | 2.36/- | 0.81/- | 0.94/- | - |
-|SimVQ (ours) | 0.9kbps | 100.0/100.0% | 4.00/3.51 | 2.33/2.08 | 0.91/0.88 | 0.94/0.91 | - |
-|SimVQ (ours) | 1.35kbps | 95.6/94.7% | 4.03/3.53 | 2.61/2.31 | 0.93/0.90 | 0.95/0.93 | - |
-
-
-      
-
-#### Reconstruction Visualization
-
-**Figure 2.** Visualization of the Open-MAGVIT2 tokenizer trained at $128 \times 128$ resolution (`imagenet_simvq_128_Base` version). (a) indicates the original images while (b) specifies the reconstruction images.
-<p align="center">
-    <img src="./assets/case_image.png">
-</p>
-
-**Figure 3.** Visualization of the Open-MAGVIT2 tokenizer trained at LibriTTS (`libritts_24khz` version). (a) indicates the original images while (b) specifies the reconstruction images.
-<p align="center">
-    <img src="./assets/case_audio.png">
-</p>
-
-
-#### Training Scripts
+### Training Scripts
 * Image Tokenizer Training
 ```
 XDG_CACHE_HOME="dataset/ILSVRC2012" python main.py fit --config configs/imagenet_simvq_128_B.yaml
@@ -105,7 +125,7 @@ XDG_CACHE_HOME="dataset/ILSVRC2012" python main.py fit --config configs/imagenet
 DATA_ROOT="dataset/libritts" python main.py fit --config configs/libritts_24khz.yaml
 ```
 
-#### Evaluation Scripts
+### Evaluation Scripts
 * Image Tokenizer Evaluation
 ```
 XDG_CACHE_HOME="dataset/ILSVRC2012" python evaluation.py --config_file vq_log/simvq_1k/size128/config.yaml --ckpt_path vq_log/simvq_1k/epoch=49-step=250250.ckpt
