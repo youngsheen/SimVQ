@@ -32,7 +32,7 @@ model:
       dimension: 512
     
     quantconfig:
-      target: taming.modules.vqvae.SimVQ1D
+      target: taming.modules.vqvae.quantize.SimVQ1D
       params:
         n_e: 1024
         e_dim: 512
