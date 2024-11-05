@@ -5,7 +5,6 @@ tensorboardx
 albumentations==1.4.4
 einops
 requests
-transformers==4.37.2
 lpips
 librosa
 omegaconf

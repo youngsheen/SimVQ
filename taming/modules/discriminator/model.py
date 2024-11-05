@@ -6,7 +6,6 @@ from functools import partial
 from typing import Optional, Union, Tuple, List
 import torch.nn.functional as F
 from taming.modules.util import ActNorm
-from taming.modules.diffusionmodules.transformer import get_2d_sincos_pos_embed, Transformer, init_weights
 
 import math
 import numpy as np
@@ -22,44 +21,6 @@ def weights_init(m):
     elif classname.find('BatchNorm') != -1:
         nn.init.normal_(m.weight.data, 1.0, 0.02)
         nn.init.constant_(m.bias.data, 0)
-
-
-class NLayerDiscriminatorTransformer(nn.Module):
-    def __init__(self, image_size = 128, patch_size = 8,
-                 hidden_dim=256, num_layers=3, nhead=4, mlp_dim=1024, channels: int = 3, dim_head: int = 64) -> None:
-        super().__init__()
-        assert dim_head * nhead == hidden_dim
-        image_height, image_width = image_size if isinstance(image_size, tuple) \
-                                    else (image_size, image_size)
-        patch_height, patch_width = patch_size if isinstance(patch_size, tuple) \
-                                    else (patch_size, patch_size)
-
-        assert image_height % patch_height == 0 and image_width % patch_width == 0, 'Image dimensions must be divisible by the patch size.'
-        en_pos_embedding = get_2d_sincos_pos_embed(hidden_dim, (image_height // patch_height, image_width // patch_width))
-
-        self.num_patches = (image_height // patch_height) * (image_width // patch_width)
-        self.patch_dim = channels * patch_height * patch_width
-
-        self.to_patch_embedding = nn.Sequential(
-            nn.Conv2d(channels, hidden_dim, kernel_size=patch_size, stride=patch_size),
-            Rearrange('b c h w -> b (h w) c'),
-        )
-        self.en_pos_embedding = nn.Parameter(torch.from_numpy(en_pos_embedding).float().unsqueeze(0), requires_grad=False)
-        #self.en_pos_embedding = nn.Embedding(image_height // patch_height * image_width // patch_width, hidden_dim)
-        self.transformer = Transformer(hidden_dim, num_layers, nhead, dim_head, mlp_dim)
-        
-        self.fc = nn.Linear(hidden_dim, 1)
-        
-        self.apply(init_weights)
-    
-    def forward(self, img: torch.FloatTensor) -> torch.FloatTensor:
-        x = self.to_patch_embedding(img)
-        x = x + self.en_pos_embedding#.weight.unsqueeze(0)
-        #x = self.norm(x)
-        x = self.transformer(x)
-        x = self.fc(x.mean(1))
-        return x
-
 
 
 
