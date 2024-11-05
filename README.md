@@ -1,6 +1,14 @@
 # SimVQ: Addressing Representation Collapse in Vector Quantized Models with One Linear Layer
 
 
+<h5 align="center">
+
+[![arXiv](https://img.shields.io/badge/Arxiv-2411.02038-AD1C18.svg?logo=arXiv)](https://arxiv.org/abs/2411.02038)
+
+</h5>
+
+
+
 <details open><summary>💡 Some other projects about Discrete Tokenizer based Multimodal GenAI from our team may interest you ✨. </summary><p>
 <!--  may -->
 
