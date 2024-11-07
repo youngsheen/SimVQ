@@ -29,6 +29,8 @@
 
 **Algorithm for SimVQ** 
 
+You can find the core code here https://github.com/youngsheen/SimVQ/blob/main/taming/modules/vqvae/quantize.py#L28-L33
+
 <p align="center">
 <img src="./assets/Algorithm.png">
 </p>
