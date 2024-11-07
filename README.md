@@ -18,7 +18,7 @@
 
 > [**[ACL 2024] Generative Pre-Trained Speech Language Model with Efficient Hierarchical Transformer**](https://github.com/youngsheen/GPST) <br>
 > Yongxin Zhu, Dan Su, Liqiang He, Linli Xu, Dong Yu <br>
-[![github](https://img.shields.io/badge/-Github-black?logo=github)](https://github.com/youngsheen/GPST)  [![github](https://img.shields.io/github/stars/youngsheen/GPST.svg?style=social)](https://github.com/youngsheen/GPST) [![arXiv](https://img.shields.io/badge/Arxiv-2406.00976-b31b1b.svg?logo=arXiv)](https://arxiv.org/abs/2406.00976) <br>
+[![github](https://img.shields.io/badge/-Github-black?logo=github)](https://github.com/youngsheen/GPST)  [![github](https://img.shields.io/github/stars/youngsheen/GPST.svg?style=social)](https://github.com/youngsheen/GPST) [![arXiv](https://img.shields.io/badge/Arxiv-2406.00976-b31b1b.svg?logo=arXiv)](https://arxiv.org/abs/2406.00976) (Adopted by [Moshi](https://arxiv.org/abs/2410.00037))<br>
 
 > [**[EMNLP 2023] DiffS2UT: A Semantic Preserving Diffusion Model for Textless Direct Speech-to-Speech Translation**](https://aclanthology.org/2023.emnlp-main.709) <br>
 > Yongxin Zhu, Zhujin Gao, Xinyuan Zhou, Zhongyi Ye, Linli Xu <br>
