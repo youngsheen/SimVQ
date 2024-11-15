@@ -47,8 +47,8 @@ You can find the core code here https://github.com/youngsheen/SimVQ/blob/main/ta
 |FSQ | 64,000 | 100.0% | 2.80 | 0.13| 23.63 | 75.8 | - |
 |LFQ | 65,536 | 100.0% | 2.88 | 0.13| 23.60 | 77.2 | - |
 |VQGAN-LC | 65,536 | 100.0% | 2.40 | 0.13 | 23.98 | 77.3 | - |
-|SimVQ (ours) | 65,536 | 100.0% | **2.24** | **0.12** | **24.15** | **78.4** | - |
-|SimVQ (ours) | 262,144 | 100.0% | **1.99** | **0.11** | **24.68** | **80.3** | - |
+|SimVQ (ours) | 65,536 | 100.0% | **2.24** | **0.12** | **24.15** | **78.4** | uploading |
+|SimVQ (ours) | 262,144 | 100.0% | **1.99** | **0.11** | **24.68** | **80.3** | [huggingface](https://huggingface.co/zyx123/SimVQ/tree/main/vq_log/simvq_262k) |
 
    
 **Table 2.** Reconstruction performance of different tokenizers on LibriTTS test clean/other set.
@@ -60,8 +60,8 @@ You can find the core code here https://github.com/youngsheen/SimVQ/blob/main/ta
 |SpeechTokenizer | 3.0kbps | -/-% | 3.56/3.02 | 1.93/1.74 | 0.88/0.84 | 0.93/0.89 | - |
 |WavTokenizer | 0.9kbps | 100/100% | 3.74/3.43 | 2.01/2.26 | 0.89/0.89 | 0.92/0.92 | - |
 |WavTokenizer | 1.05kbps | 27/-% | 4.00/- | 2.36/- | 0.81/- | 0.94/- | - |
-|SimVQ (ours) | 0.9kbps | 100.0/100.0% | 4.00/3.51 | 2.33/2.08 | 0.91/0.88 | 0.94/0.91 | - |
-|SimVQ (ours) | 1.35kbps | 95.6/94.7% | 4.03/3.53 | 2.61/2.31 | 0.93/0.90 | 0.95/0.93 | - |
+|SimVQ (ours) | 0.9kbps | 100.0/100.0% | 4.00/3.51 | 2.33/2.08 | 0.91/0.88 | 0.94/0.91 | uploading |
+|SimVQ (ours) | 1.35kbps | 95.6/94.7% | 4.03/3.53 | 2.61/2.31 | 0.93/0.90 | 0.95/0.93 | [huggingface](https://huggingface.co/zyx123/SimVQ/tree/main/vq_audio_log/simvq_262k) |
 
 
 ### Reconstruction Visualization
@@ -127,6 +127,9 @@ XDG_CACHE_HOME="dataset/ILSVRC2012" python main.py fit --config configs/imagenet
 ```
 
 * Audio Tokenizer Training
+
+You can get manifest .txt with generate_manifest.py
+
 ```
 DATA_ROOT="dataset/libritts" python main.py fit --config configs/libritts_24khz.yaml
 ```
@@ -134,12 +137,12 @@ DATA_ROOT="dataset/libritts" python main.py fit --config configs/libritts_24khz.
 ### Evaluation Scripts
 * Image Tokenizer Evaluation
 ```
-XDG_CACHE_HOME="dataset/ILSVRC2012" python evaluation.py --config_file vq_log/simvq_1k/size128/config.yaml --ckpt_path vq_log/simvq_1k/epoch=49-step=250250.ckpt
+XDG_CACHE_HOME="dataset/ILSVRC2012" python evaluation.py --config_file vq_log/simvq_262k/size128/config.yaml --ckpt_path vq_log/simvq_262k/statedict_epoch=49-step=250250.ckpt
 ```
 
 * Audio Tokenizer Evaluation
 ```
-DATA_ROOT="dataset/libritts" python evaluation_speech.py --config_file vq_audio_log/simvq_1k/1second/config.yaml --ckpt_path vq_audio_log/simvq_1k/epoch=49-step=443500.ckpt
+DATA_ROOT="dataset/libritts" python evaluation_speech.py --config_file vq_audio_log/simvq_262k/1second/config.yaml --ckpt_path vq_audio_log/simvq_262k/epoch=49-step=138600.ckpt
 ```
 
 ## Acknowledgement
