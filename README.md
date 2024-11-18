@@ -7,9 +7,11 @@
 
 </h5>
 
+## News
 
+* Checkpoints are released.
 
-<details open><summary>💡 Some other projects about Discrete Tokenizer based Multimodal GenAI from our team may interest you ✨. </summary><p>
+<details open><summary> Some other projects about Discrete Tokenizer based Multimodal GenAI from our team may interest you. </summary><p>
 <!--  may -->
 
 > [**[NeurIPS 2024] Stabilize the Latent Space for Image Autoregressive Modeling: A Unified Perspective**](https://github.com/DAMO-NLP-SG/DiGIT) <br>
@@ -62,19 +64,6 @@ You can find the core code here https://github.com/youngsheen/SimVQ/blob/main/ta
 |WavTokenizer | 1.05kbps | 27/-% | 4.00/- | 2.36/- | 0.81/- | 0.94/- | - |
 |SimVQ (ours) | 0.9kbps | 100.0/100.0% | 4.00/3.51 | 2.33/2.08 | 0.91/0.88 | 0.94/0.91 | uploading |
 |SimVQ (ours) | 1.35kbps | 95.6/94.7% | 4.03/3.53 | 2.61/2.31 | 0.93/0.90 | 0.95/0.93 | [huggingface](https://huggingface.co/zyx123/SimVQ/tree/main/vq_audio_log/simvq_262k) |
-
-
-### Reconstruction Visualization
-
-**Figure 2.** Visualization of the Open-MAGVIT2 tokenizer trained at $128 \times 128$ resolution (`imagenet_simvq_128_Base` version). (a) indicates the original images while (b) specifies the reconstruction images.
-<p align="center">
-    <img src="./assets/case_image.png">
-</p>
-
-**Figure 3.** Visualization of the Open-MAGVIT2 tokenizer trained at LibriTTS (`libritts_24khz` version). (a) indicates the original images while (b) specifies the reconstruction images.
-<p align="center">
-    <img src="./assets/case_audio.png">
-</p>
 
 
 ## Implementations
@@ -137,13 +126,28 @@ DATA_ROOT="dataset/libritts" python main.py fit --config configs/libritts_24khz.
 ### Evaluation Scripts
 * Image Tokenizer Evaluation
 ```
-XDG_CACHE_HOME="dataset/ILSVRC2012" python evaluation.py --config_file vq_log/simvq_262k/size128/config.yaml --ckpt_path vq_log/simvq_262k/statedict_epoch=49-step=250250.ckpt
+XDG_CACHE_HOME="dataset/ILSVRC2012" python evaluation.py --config_file vq_log/simvq_262k/size128/config.yaml --ckpt_path vq_log/simvq_262k/epoch=49-step=250250.ckpt
 ```
 
 * Audio Tokenizer Evaluation
 ```
 DATA_ROOT="dataset/libritts" python evaluation_speech.py --config_file vq_audio_log/simvq_262k/1second/config.yaml --ckpt_path vq_audio_log/simvq_262k/epoch=49-step=138600.ckpt
 ```
+
+
+
+## Reconstruction Visualization
+
+**Figure 2.** Visualization of the Open-MAGVIT2 tokenizer trained at $128 \times 128$ resolution (`imagenet_simvq_128_Base` version). (a) indicates the original images while (b) specifies the reconstruction images.
+<p align="center">
+    <img src="./assets/case_image.png">
+</p>
+
+**Figure 3.** Visualization of the Open-MAGVIT2 tokenizer trained at LibriTTS (`libritts_24khz` version). (a) indicates the original images while (b) specifies the reconstruction images.
+<p align="center">
+    <img src="./assets/case_audio.png">
+</p>
+
 
 ## Acknowledgement
 The codebase of SimVQ is adapted from [Open-MAGVIT2](https://github.com/TencentARC/Open-MAGVIT2) and [WavTokenizer](https://github.com/jishengpeng/WavTokenizer). Thanks for their wonderful work.
