@@ -49,7 +49,9 @@ You can find the core code here https://github.com/youngsheen/SimVQ/blob/main/ta
 |FSQ | 64,000 | 100.0% | 2.80 | 0.13| 23.63 | 75.8 | - |
 |LFQ | 65,536 | 100.0% | 2.88 | 0.13| 23.60 | 77.2 | - |
 |VQGAN-LC | 65,536 | 100.0% | 2.40 | 0.13 | 23.98 | 77.3 | - |
-|SimVQ (ours) | 65,536 | 100.0% | **2.24** | **0.12** | **24.15** | **78.4** | uploading |
+|SimVQ (ours) | 1024 | 100.0% | 3.67 | 0.16 | 22.34 | 70.8 | [huggingface](https://huggingface.co/zyx123/SimVQ/tree/main/vq_log/simvq_1k) |
+|SimVQ (ours) | 8192 | 100.0% | 2.98 | 0.14 | 23.23 | 74.7 | [huggingface](https://huggingface.co/zyx123/SimVQ/tree/main/vq_log/simvq_8k) |
+|SimVQ (ours) | 65,536 | 100.0% | **2.24** | **0.12** | **24.15** | **78.4** | [huggingface](https://huggingface.co/zyx123/SimVQ/tree/main/vq_log/simvq_65k) |
 |SimVQ (ours) | 262,144 | 100.0% | **1.99** | **0.11** | **24.68** | **80.3** | [huggingface](https://huggingface.co/zyx123/SimVQ/tree/main/vq_log/simvq_262k) |
 
    
@@ -62,7 +64,9 @@ You can find the core code here https://github.com/youngsheen/SimVQ/blob/main/ta
 |SpeechTokenizer | 3.0kbps | -/-% | 3.56/3.02 | 1.93/1.74 | 0.88/0.84 | 0.93/0.89 | - |
 |WavTokenizer | 0.9kbps | 100/100% | 3.74/3.43 | 2.01/2.26 | 0.89/0.89 | 0.92/0.92 | - |
 |WavTokenizer | 1.05kbps | 27/-% | 4.00/- | 2.36/- | 0.81/- | 0.94/- | - |
-|SimVQ (ours) | 0.9kbps | 100.0/100.0% | 4.00/3.51 | 2.33/2.08 | 0.91/0.88 | 0.94/0.91 | uploading |
+|SimVQ (ours) | 0.9kbps | 100.0/100.0% | 4.00/3.51 | 2.33/2.08 | 0.91/0.88 | 0.94/0.91 | [huggingface](https://huggingface.co/zyx123/SimVQ/tree/main/vq_audio_log/simvq_4k) |
+|SimVQ (ours) | 0.975kbps | 99.4/99.4% | 4.03/3.52 | 2.42/2.15 | 0.92/0.88 | 0.94/0.92 | [huggingface](https://huggingface.co/zyx123/SimVQ/tree/main/vq_audio_log/simvq_8k) |
+|SimVQ (ours) | 1.2kbps | 99.4/99.0% | 4.03/3.52 | 2.54/2.26 | 0.93/0.90 | 0.94/0.92 | [huggingface](https://huggingface.co/zyx123/SimVQ/tree/main/vq_audio_log/simvq_65k) |
 |SimVQ (ours) | 1.35kbps | 95.6/94.7% | 4.03/3.53 | 2.61/2.31 | 0.93/0.90 | 0.95/0.93 | [huggingface](https://huggingface.co/zyx123/SimVQ/tree/main/vq_audio_log/simvq_262k) |
 
 
