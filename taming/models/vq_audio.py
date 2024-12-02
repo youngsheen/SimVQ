@@ -177,7 +177,8 @@ class VQModel(L.LightningModule):
         xrec, eloss, loss_break = self(x)
 
         opt_gen, opt_disc = self.optimizers()
-        # scheduler_gen, scheduler_disc = self.lr_schedulers()
+        if self.scheduler_type != "None":
+            scheduler_gen, scheduler_disc = self.lr_schedulers()
 
         ####################
         # fix global step bug
@@ -194,7 +195,8 @@ class VQModel(L.LightningModule):
         opt_gen.zero_grad()
         self.manual_backward(aeloss)
         opt_gen.step()
-        # scheduler_gen.step()
+        if self.scheduler_type != "None":
+            scheduler_gen.step()
         
         log_dict_ae["train/codebook_util"] = torch.tensor(sum(self.codebook_count) / len(self.codebook_count))
         
@@ -204,7 +206,8 @@ class VQModel(L.LightningModule):
         opt_disc.zero_grad()
         self.manual_backward(discloss)
         opt_disc.step()
-        # scheduler_disc.step()
+        if self.scheduler_type != "None":
+            scheduler_disc.step()
         if torch.distributed.get_rank() == 0:
             print(log_dict_ae, log_dict_disc)
         
