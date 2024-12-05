@@ -37,6 +37,8 @@ You can find the core code here https://github.com/youngsheen/SimVQ/blob/main/ta
 <img src="./assets/Algorithm.png">
 </p>
 
+**Note:** Optimizing both the codebook C and the linear layer W can work as well.
+
 
 ## Quantitative Comparison
 
@@ -121,11 +123,13 @@ XDG_CACHE_HOME="dataset/ILSVRC2012" python main.py fit --config configs/imagenet
 
 * Audio Tokenizer Training
 
-You can get manifest .txt with generate_manifest.py
+You can get manifest .txt with `generate_manifest.py`
 
 ```
-DATA_ROOT="dataset/libritts" python main.py fit --config configs/libritts_24khz.yaml
+DATA_ROOT="/data3/yongxinzhu/libritts/LibriTTS" CUDA_VISIBLE_DEVICES=4,5,6,7 python main.py fit --config configs/libritts_24khz.yaml
 ```
+
+**Note:** Some users have reported encountering NaN issues when training SimVQ on audio data. This appears to be a random occurrence, but we have found that using learning rate warmup can help mitigate the problem.
 
 ### Evaluation Scripts
 * Image Tokenizer Evaluation
